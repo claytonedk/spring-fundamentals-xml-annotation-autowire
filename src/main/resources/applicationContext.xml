@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+	
+	<context:component-scan base-package="com.kuhn"></context:component-scan>
+	
+	<!-- Map discounts -->
+	<bean name="discountNormal" class="com.kuhn.strategy.discount.DiscountCalcNormal"/>
+	<bean name="discountSilver" class="com.kuhn.strategy.discount.DiscountCalcSilver"/>
+	<bean name="discountGold" class="com.kuhn.strategy.discount.DiscountCalcGold"/>
+	<bean name="discountPlatinum" class="com.kuhn.strategy.discount.DiscountCalcPlatinum"/>
+	
+	<util:map id="mapDiscount" key-type="com.kuhn.enums.CustomerType" value-type="com.kuhn.strategy.discount.DiscountCalc">
+		<entry key="NORMAL" value-ref="discountNormal" />
+		<entry key="SILVER" value-ref="discountSilver" />
+		<entry key="GOLD" value-ref="discountSilver" />
+		<entry key="PLATINUM" value-ref="discountPlatinum" />
+	</util:map>
+	
+</beans>
